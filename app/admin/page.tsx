@@ -22,7 +22,7 @@ export default async function AdminPage({ searchParams }: { searchParams: { ok?:
     getProducts(),
     getBallots(),
     getPress(),
-    supabase.from('profiles').select('id, full_name, credential, role_title, role, verified_at').order('created_at').then((r) => (r.data ?? []) as (Profile & { verified_at: string | null })[]),
+    supabase.from('profiles').select('id, full_name, credential, role_title, role, verified_at').order('created_at').then((r: { data: unknown }) => ((r.data as unknown[] | null) ?? []) as (Profile & { verified_at: string | null })[]),
   ]);
   const items = products.map((p) => ({
     id: p.id, name: p.name, category: p.category, review_count: p.review_count, avg_rating: p.avg_rating,
@@ -85,7 +85,7 @@ export default async function AdminPage({ searchParams }: { searchParams: { ok?:
             <h3>People</h3>
             <p className="small" style={{ margin: '0 0 14px' }}>Everyone who has signed in. Make verified experts panelists so they can submit ballots from the Panel page.</p>
             <div className="presslist">
-              {people.map((u) => (
+              {people.map((u: Profile & { verified_at: string | null }) => (
                 <form className="row" action={setRole} key={u.id}>
                   <input type="hidden" name="id" value={u.id} />
                   <span>

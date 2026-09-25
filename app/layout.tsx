@@ -3,7 +3,7 @@ import { Newsreader, Public_Sans } from 'next/font/google';
 import Header from '@/components/Header';
 import './globals.css';
 
-const display = Newsreader({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-display' });
+const display = Newsreader({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-display', adjustFontFallback: false });
 const body = Public_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-body' });
 
 export const metadata: Metadata = {

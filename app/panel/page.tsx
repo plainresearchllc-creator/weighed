@@ -21,7 +21,7 @@ export default async function PanelPage({ searchParams }: { searchParams: { ok?:
     getProducts(),
     getBallots(),
     canVote ? getConflicts(viewer.id) : Promise.resolve([] as string[]),
-    supabase.from('expert_private').select('license_number, issuing_board').eq('id', viewer.id).maybeSingle().then((r) => r.data),
+    supabase.from('expert_private').select('license_number, issuing_board').eq('id', viewer.id).maybeSingle().then((r: { data: { license_number: string | null; issuing_board: string | null } | null }) => r.data),
   ]);
   const mine = ballots.filter((b) => b.expert_id === viewer.id);
   const votedOn = new Set(mine.map((b) => b.product_id));

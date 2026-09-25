@@ -45,7 +45,7 @@ export default function WeightsForm({ saved, items, action }: { saved: ScoringSe
             <div className="field" key={f.key}>
               <label htmlFor={`s-${f.key}`}>{f.label}</label>
               <div className="slider">
-                <input type="range" id={`s-${f.key}`} name={f.key} min={f.min} max={f.max} step={f.step} value={draft[f.key]} onChange={(e) => set(f.key, parseFloat(e.target.value))} />
+                <input type="range" id={`s-${f.key}`} name={f.key} min={f.min} max={f.max} step={f.step} value={draft[f.key]} onChange={(e: React.ChangeEvent<HTMLInputElement>) => set(f.key, parseFloat(e.target.value))} />
                 <output htmlFor={`s-${f.key}`}>{f.fmt(draft[f.key])}</output>
               </div>
             </div>
@@ -61,7 +61,7 @@ export default function WeightsForm({ saved, items, action }: { saved: ScoringSe
         <h3>Preview</h3>
         <div className="field">
           <label htmlFor="pv-cat" className="hint">Category</label>
-          <select id="pv-cat" value={cat} onChange={(e) => setCat(e.target.value)}>
+          <select id="pv-cat" value={cat} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCat(e.target.value)}>
             {CATEGORIES.map((c) => <option key={c.slug}>{c.name}</option>)}
           </select>
         </div>

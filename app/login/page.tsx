@@ -25,7 +25,7 @@ export default function LoginPage() {
           <p className="msg ok" role="status">Check {email} for your sign-in link.</p>
         ) : (
           <form onSubmit={onSubmit} className="stack" style={{ marginTop: 16 }}>
-            <div className="field"><label htmlFor="email">Email</label><input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></div>
+            <div className="field"><label htmlFor="email">Email</label><input id="email" type="email" required value={email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} autoComplete="email" /></div>
             <button className="btn primary" type="submit" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Email me a sign-in link'}</button>
             {state === 'error' && <p className="msg err" role="status">The link couldn’t be sent. Check the address and try again.</p>}
           </form>
