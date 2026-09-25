@@ -6,14 +6,21 @@ import { createClient } from '@/lib/supabase/client';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [detail, setDetail] = useState('');
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setState('sending');
     const supabase = createClient();
     const site = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
-    const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: `${site}/auth/callback?next=/panel` } });
-    setState(error ? 'error' : 'sent');
+    try {
+      const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: `${site}/auth/callback?next=/panel` } });
+      setDetail(error ? error.message : '');
+      setState(error ? 'error' : 'sent');
+    } catch (err) {
+      setDetail(err instanceof Error ? err.message : String(err));
+      setState('error');
+    }
   }
 
   return (
@@ -27,7 +34,7 @@ export default function LoginPage() {
           <form onSubmit={onSubmit} className="stack" style={{ marginTop: 16 }}>
             <div className="field"><label htmlFor="email">Email</label><input id="email" type="email" required value={email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} autoComplete="email" /></div>
             <button className="btn primary" type="submit" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Email me a sign-in link'}</button>
-            {state === 'error' && <p className="msg err" role="status">The link couldn’t be sent. Check the address and try again.</p>}
+            {state === 'error' && <p className="msg err" role="status">The link couldn’t be sent.{detail ? ` Supabase says: “${detail}”` : ' Check the address and try again.'}</p>}
           </form>
         )}
       </div>
