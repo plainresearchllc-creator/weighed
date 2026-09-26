@@ -110,7 +110,7 @@ export default async function MethodPage() {
         <div className="dark"><b>3</b><span>Weighed score</span></div>
       </div>
 
-      <section className="m-sec split">
+      <section className="m-sec m-split">
         <PhotoSlot file="panel.jpg" alt="A dietitian taking notes while comparing product labels" />
         <div className="m-body">
           <div className="m-kicker">Step 1</div>
@@ -150,7 +150,7 @@ export default async function MethodPage() {
         </div>
       </section>
 
-      <section className="m-sec split reverse">
+      <section className="m-sec m-split m-reverse">
         <PhotoSlot file="reviews.jpg" alt="A customer opening a delivered package at home" />
         <div className="m-body">
           <div className="m-kicker">Step 2</div>
@@ -218,7 +218,7 @@ export default async function MethodPage() {
         </div>
       </section>
 
-      <section className="m-sec split">
+      <section className="m-sec m-split">
         <PhotoSlot file="retail.jpg" alt="Supplement bottles on a store shelf" />
         <div className="m-body">
           <div className="m-kicker">Independence</div>
