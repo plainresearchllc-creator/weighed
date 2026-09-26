@@ -62,12 +62,23 @@ You're live. Anyone can view the rankings; only you can change them.
 
 ---
 
+## Updates
+
+When an update includes a new file in `supabase/migrations/`, run it once in Supabase (**SQL Editor → New query → paste → Run**).
+
+- `002_ctas.sql`: adds “Check price” links on product pages and email sign-ups.
+
+## Method page photos
+
+See `public/method/README.txt`. Upload four photos to that folder on GitHub and they appear on the Method page automatically.
+
 ## Using the site
 
 - **Rankings** (`/` and `/c/<category>`): public. Scores are calculated live from ballots and review data.
 - **Product pages** (`/p/<id>`): the full score breakdown and every ballot. Admins also see forms to add ballots, update review numbers, change the photo or delete the product.
 - **Admin** (`/admin`): scoring weights with a live preview, add products, press coverage, people and roles, and removing the sample data.
 - **Panel** (`/panel`): experts sign in, complete their profile and license details, declare conflicts, and submit their own ballots. The database blocks a ballot for any brand they've declared a tie to.
+- **Email sign-ups**: the monthly update (homepage) and score alerts (product pages). See them in **Admin → Email sign-ups**.
 - **Corrections** (`/corrections`): a public log the database writes automatically whenever a ballot, customer data or the method changes. Sample data isn't logged.
 
 ### Adding an expert

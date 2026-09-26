@@ -62,6 +62,8 @@ export async function addProduct(fd: FormData) {
     review_count: Math.max(0, Math.round(num(fd, 'review_count'))),
     avg_rating: avg ? Math.min(5, Math.max(1, parseFloat(avg))) : null,
     image_path,
+    retailer: str(fd, 'retailer') || null,
+    buy_url: /^https?:\/\//i.test(str(fd, 'buy_url')) ? str(fd, 'buy_url') : null,
   }).select('id').single();
   if (error || !data) back('/admin', 'Couldn’t add the product. Check the fields and try again.', 'err');
   refreshAll();
@@ -79,6 +81,16 @@ export async function updateCustomer(fd: FormData) {
   }).eq('id', id);
   refreshAll();
   back(`/p/${id}`, error ? 'Couldn’t update customer data.' : 'Customer data updated.', error ? 'err' : 'ok');
+}
+
+export async function setBuyLink(fd: FormData) {
+  const supabase = await requireAdmin();
+  const id = str(fd, 'id');
+  const url = str(fd, 'buy_url');
+  if (url && !/^https?:\/\//i.test(url)) back(`/p/${id}`, 'Enter a full link starting with https://', 'err');
+  const { error } = await supabase.from('products').update({ retailer: str(fd, 'retailer') || null, buy_url: url || null }).eq('id', id);
+  refreshAll();
+  back(`/p/${id}`, error ? 'Couldn’t save the link.' : url ? 'Link saved.' : 'Link removed.', error ? 'err' : 'ok');
 }
 
 export async function setPhoto(fd: FormData) {

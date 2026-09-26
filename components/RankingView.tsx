@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import CategoryBar from '@/components/CategoryBar';
 import PhotoIcon from '@/components/PhotoIcon';
 import { Bar, StatusPill, pct } from '@/components/Score';
+import SubscribeForm from '@/components/SubscribeForm';
 import { categoryBySlug } from '@/lib/categories';
 import { getPress, getProducts, getRanking, imageUrl } from '@/lib/data';
 import { fmt1 } from '@/lib/scoring';
@@ -50,6 +51,10 @@ export default async function RankingView({ slug }: { slug: string }) {
             <div className="eyebrow">{cat.name}</div>
             <h1>Ranked by credentialed experts, weighed against verified buyers</h1>
             <p className="lede">Every product here is scored independently by a vetted panel, then checked against what confirmed buyers report. No brand can pay for a place on this list.</p>
+            <div className="ctas">
+              <a className="btn primary lg" href="#rankings">See the top-rated picks</a>
+              <Link className="btn lg" href="/method">How we score</Link>
+            </div>
           </div>
           <div className="weightcard">
             <div style={{ fontWeight: 600, fontSize: 14 }}>How the score is weighted</div>
@@ -82,7 +87,7 @@ export default async function RankingView({ slug }: { slug: string }) {
         {rows.length === 0 ? (
           <div className="empty"><h3>No products scored in {cat.name} yet</h3><p>This panel hasn’t reviewed any products.</p></div>
         ) : (
-          <div className="list">
+          <div className="list" id="rankings">
             {rows.map(({ item: p, score: r, position }) => {
               const img = imageUrl(p.image_path);
               return (
@@ -115,6 +120,16 @@ export default async function RankingView({ slug }: { slug: string }) {
           </div>
         )}
 
+        {rows.length > 0 && (
+          <section className="ctaband" aria-labelledby="sub-h">
+            <div>
+              <h2 id="sub-h">Get the rankings when they change</h2>
+              <p>One email a month with new scores, big moves, and products our experts flagged. No sponsored picks, ever.</p>
+            </div>
+            <SubscribeForm button="Get the monthly update" id="home-subscribe" />
+          </section>
+        )}
+
         {panel.length > 0 && (
           <section className="panelsec" aria-labelledby="panel-h">
             <div className="sechead">
@@ -136,6 +151,14 @@ export default async function RankingView({ slug }: { slug: string }) {
             {panel.length > 8 && <p className="small">And {panel.length - 8} more panelists.</p>}
           </section>
         )}
+
+        <section className="ctaband alt" aria-labelledby="join-h">
+          <div>
+            <h2 id="join-h">Are you a dietitian, physician or pharmacist?</h2>
+            <p>Join a Weighed panel. Score products on the evidence, publish your reasoning under your own name, and get paid a flat fee that never depends on your scores.</p>
+          </div>
+          <Link className="btn primary lg" href="/panel">Apply to the panel</Link>
+        </section>
 
         <section className="pledge" aria-labelledby="pledge-h">
           <h2 id="pledge-h">Why you can trust these rankings</h2>

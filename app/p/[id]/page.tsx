@@ -5,10 +5,11 @@ import PhotoIcon from '@/components/PhotoIcon';
 import { Tags } from '@/components/RankingView';
 import { Bar, StatusPill, pct } from '@/components/Score';
 import Flash from '@/components/Flash';
+import SubscribeForm from '@/components/SubscribeForm';
 import { slugFor } from '@/lib/categories';
-import { getProduct, getViewer, imageUrl } from '@/lib/data';
+import { getProduct, getRanking, getViewer, imageUrl } from '@/lib/data';
 import { CRITERIA, ballotScore, fmt1 } from '@/lib/scoring';
-import { addBallotAsAdmin, deleteBallot, deleteProduct, removePhoto, setPhoto, updateCustomer } from '@/app/admin/actions';
+import { addBallotAsAdmin, deleteBallot, deleteProduct, removePhoto, setBuyLink, setPhoto, updateCustomer } from '@/app/admin/actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,6 +27,9 @@ export default async function ProductPage({ params, searchParams }: Props) {
   const isAdmin = viewer?.profile?.role === 'admin';
   const img = imageUrl(p.image_path);
   const sorted = [...ballots].sort((a, b) => ballotScore(b) - ballotScore(a));
+  const { rows: catRows } = await getRanking(p.category, st);
+  const others = catRows.filter((x) => x.item.id !== p.id && x.position != null).slice(0, 3);
+  const myPos = catRows.find((x) => x.item.id === p.id)?.position ?? null;
 
   return (
     <main className="wrap">
@@ -135,6 +139,19 @@ export default async function ProductPage({ params, searchParams }: Props) {
               <div className="formula">({fmt1(r.expert)} × {r.expertWeight.toFixed(2)}) + ({fmt1(r.customer)} × {(1 - r.expertWeight).toFixed(2)}) = <b>{fmt1(r.total)}</b></div>
             )}
             {r.agreement && <p className="small" style={{ margin: '8px 0 0' }}>{r.agreement.note}</p>}
+            {myPos && <p className="small" style={{ margin: '8px 0 0' }}>Ranked #{myPos} in {p.category}.</p>}
+            {p.buy_url && (
+              <div className="buy">
+                <a className="btn" href={p.buy_url} target="_blank" rel="sponsored noopener noreferrer">Check price at {p.retailer || 'the retailer'}</a>
+                <span className="small">We may earn a commission if you buy. It never affects scores or rank.</span>
+              </div>
+            )}
+          </div>
+
+          <div className="panel">
+            <h3>Get an alert if this score changes</h3>
+            <p className="small" style={{ margin: '4px 0 12px' }}>We’ll email you when new ballots or reformulations move this product’s score. Nothing else.</p>
+            <SubscribeForm productId={p.id} button="Alert me" id="alert-email" />
           </div>
 
           <div className="panel">
@@ -156,6 +173,19 @@ export default async function ProductPage({ params, searchParams }: Props) {
 
           {isAdmin && (
             <div className="panel">
+              <h3>Where to buy</h3>
+              <p className="small" style={{ margin: '4px 0 12px' }}>Shows a “Check price” button. Leave the link empty to hide it.</p>
+              <form className="grid" action={setBuyLink}>
+                <input type="hidden" name="id" value={p.id} />
+                <div className="field"><label htmlFor="r-name">Retailer</label><input id="r-name" name="retailer" defaultValue={p.retailer ?? ''} placeholder="e.g. Amazon" /></div>
+                <div className="field"><label htmlFor="r-url">Product link</label><input id="r-url" name="buy_url" type="url" defaultValue={p.buy_url ?? ''} placeholder="https://" /></div>
+                <div className="actions full"><button className="btn" type="submit">Save link</button></div>
+              </form>
+            </div>
+          )}
+
+          {isAdmin && (
+            <div className="panel">
               <h3>Remove product</h3>
               <p className="small">Deletes the product and its {ballots.length} ballots for everyone. Type DELETE to confirm.</p>
               <form action={deleteProduct} className="actions">
@@ -167,6 +197,24 @@ export default async function ProductPage({ params, searchParams }: Props) {
           )}
         </aside>
       </div>
+
+      {others.length > 0 && (
+        <section style={{ marginTop: 48 }} aria-labelledby="cmp-h">
+          <div className="sechead">
+            <div><div className="eyebrow">Compare</div><h2 id="cmp-h">Other top-rated {p.category} picks</h2></div>
+            <Link className="btn" href={`/c/${slugFor(p.category)}`}>See all {p.category} rankings</Link>
+          </div>
+          <div className="compare">
+            {others.map((o) => (
+              <Link key={o.item.id} className="ccard" href={`/p/${o.item.id}`}>
+                <div className="rank" style={{ fontSize: 26 }}>{o.position}</div>
+                <div style={{ minWidth: 0 }}><div className="small">{o.item.brand}</div><div style={{ fontWeight: 600 }}>{o.item.name}</div></div>
+                <div className="cs">{fmt1(o.score.total)}</div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

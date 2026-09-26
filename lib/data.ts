@@ -1,10 +1,11 @@
 import { createClient } from '@/lib/supabase/server';
+import { SUPABASE_URL } from '@/lib/supabase/env';
 import { DEFAULT_SETTINGS, scoreProduct, rank, type ScoringSettings } from '@/lib/scoring';
 import type { Ballot, LogEntry, Press, Product, Profile } from '@/lib/types';
 
 export function imageUrl(path: string | null) {
   if (!path) return null;
-  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product-images/${path}`;
+  return `${SUPABASE_URL}/storage/v1/object/public/product-images/${path}`;
 }
 
 export async function getViewer(): Promise<{ id: string; email: string | null; profile: Profile | null } | null> {

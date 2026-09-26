@@ -11,6 +11,8 @@ export interface Product {
   avg_rating: number | null;
   filtered_count: number;
   image_path: string | null;
+  retailer: string | null;
+  buy_url: string | null;
   is_sample: boolean;
   created_at: string;
 }
