@@ -39,7 +39,7 @@ export default async function PanelPage({ searchParams }: { searchParams: { ok?:
       <div className="admin" style={{ marginTop: 28 }}>
         <div className="stack">
           {!canVote && (
-            <div className="banner">Your account isn’t on a panel yet. Complete your profile, and an admin will verify your license and add you.</div>
+            <div className="banner">Your account isn’t on a panel yet. Complete your profile, and an admin will verify your certifications and add you.</div>
           )}
           {canVote && (
             <div className="panel">
@@ -103,11 +103,11 @@ export default async function PanelPage({ searchParams }: { searchParams: { ok?:
             <h3>Profile</h3>
             <form className="grid" action={saveProfile} style={{ marginTop: 14 }}>
               <div className="field full"><label htmlFor="f-name">Full name</label><input id="f-name" name="full_name" defaultValue={me?.full_name ?? ''} required /></div>
-              <div className="field"><label htmlFor="f-cred">Credential</label><input id="f-cred" name="credential" defaultValue={me?.credential ?? ''} placeholder="RD, MD, PharmD" /></div>
-              <div className="field"><label htmlFor="f-role">Role</label><input id="f-role" name="role_title" defaultValue={me?.role_title ?? ''} placeholder="Clinical pharmacist" /></div>
-              <div className="field"><label htmlFor="f-lic">License or registration number</label><input id="f-lic" name="license_number" defaultValue={priv?.license_number ?? ''} /></div>
-              <div className="field"><label htmlFor="f-board">Issuing board and state</label><input id="f-board" name="issuing_board" defaultValue={priv?.issuing_board ?? ''} /></div>
-              <p className="hint full" style={{ margin: 0 }}>Your license number is used only for verification and is never published.</p>
+              <div className="field"><label htmlFor="f-cred">Credential</label><input id="f-cred" name="credential" defaultValue={me?.credential ?? ''} placeholder="NASM-CPT, CSCS, ACE" /></div>
+              <div className="field"><label htmlFor="f-role">Role</label><input id="f-role" name="role_title" defaultValue={me?.role_title ?? ''} placeholder="Strength coach, 8 years" /></div>
+              <div className="field"><label htmlFor="f-lic">Certification number</label><input id="f-lic" name="license_number" defaultValue={priv?.license_number ?? ''} /></div>
+              <div className="field"><label htmlFor="f-board">Certifying organization</label><input id="f-board" name="issuing_board" defaultValue={priv?.issuing_board ?? ''} /></div>
+              <p className="hint full" style={{ margin: 0 }}>Your certification number is used only for verification and is never published.</p>
               <div className="actions full"><button className="btn primary" type="submit">Save profile</button></div>
             </form>
           </div>

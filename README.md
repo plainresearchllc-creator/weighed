@@ -1,6 +1,6 @@
 # Weighed
 
-Product rankings scored by credentialed experts and weighed against verified-purchase reviews.
+Product rankings scored by vetted fitness experts and weighed against verified-purchase reviews.
 
 Built with Next.js 14 and Supabase (database, sign-in and photo storage). Hosts free on Vercel.
 
@@ -77,14 +77,14 @@ See `public/method/README.txt`. Upload four photos to that folder on GitHub and 
 - **Rankings** (`/` and `/c/<category>`): public. Scores are calculated live from ballots and review data.
 - **Product pages** (`/p/<id>`): the full score breakdown and every ballot. Admins also see forms to add ballots, update review numbers, change the photo or delete the product.
 - **Admin** (`/admin`): scoring weights with a live preview, add products, press coverage, people and roles, and removing the sample data.
-- **Panel** (`/panel`): experts sign in, complete their profile and license details, declare conflicts, and submit their own ballots. The database blocks a ballot for any brand they've declared a tie to.
+- **Panel** (`/panel`): experts sign in, complete their profile and certification details, declare conflicts, and submit their own ballots. The database blocks a ballot for any brand they've declared a tie to.
 - **Email sign-ups**: the monthly update (homepage) and score alerts (product pages). See them in **Admin → Email sign-ups**.
 - **Corrections** (`/corrections`): a public log the database writes automatically whenever a ballot, customer data or the method changes. Sample data isn't logged.
 
 ### Adding an expert
 
-1. Ask them to sign in at `/login`. They'll land on the Panel page and can fill in their profile and license.
-2. Verify their license with the issuing board.
+1. Ask them to sign in at `/login`. They'll land on the Panel page and can fill in their profile and certifications.
+2. Verify their certification with the certifying organization (most, like NASM, ACE and NSCA, have a public lookup) and check their experience. Ask about sponsorships and affiliate codes, and record any as conflicts.
 3. In **Admin → People**, set their role to **Panelist**, tick **Verified**, and click **Save**.
 
 ---

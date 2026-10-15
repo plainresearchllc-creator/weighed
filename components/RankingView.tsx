@@ -11,7 +11,7 @@ import { fmt1 } from '@/lib/scoring';
 const PLEDGES = [
   { icon: <><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" /><path d="M9 12l2 2 4-4" /></>, title: 'No paid placement', body: 'Brands can’t buy a rank, a review, or removal from the list.' },
   { icon: <><path d="M6 7h12l-1 13H7z" /><path d="M9 7a3 3 0 0 1 6 0" /></>, title: 'Bought at retail', body: 'We purchase every product ourselves. Brands never choose what panelists receive.' },
-  { icon: <><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></>, title: 'Named, verified experts', body: 'Every ballot is published with the expert’s name, credential and reasoning.' },
+  { icon: <><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></>, title: 'Named, verified experts', body: 'Every ballot is published with the expert’s name, certification and reasoning.' },
   { icon: <><path d="M4 5h16v14H4z" /><path d="M8 9h8M8 13h5" /></>, title: 'Public corrections', body: 'Every change that can move a score is logged with its date and reason.' },
 ];
 
@@ -49,8 +49,8 @@ export default async function RankingView({ slug }: { slug: string }) {
         <div className="head">
           <div>
             <div className="eyebrow">{cat.name}</div>
-            <h1>Ranked by credentialed experts, weighed against verified buyers</h1>
-            <p className="lede">Every product here is scored independently by a vetted panel, then checked against what confirmed buyers report. No brand can pay for a place on this list.</p>
+            <h1>Top-rated by fitness experts, validated by verified buyers</h1>
+            <p className="lede">Every product is independently scored by a vetted panel of experienced trainers, fitness professionals, and trusted fitness voices—then checked against verified buyer feedback. No paid placements. No brand can buy its way onto the list.</p>
             <div className="ctas">
               <a className="btn primary lg" href="#rankings">See the top-rated picks</a>
               <Link className="btn lg" href="/method">How we score</Link>
@@ -66,7 +66,7 @@ export default async function RankingView({ slug }: { slug: string }) {
 
         {rows.length > 0 && (
           <div className="stats" role="list">
-            <Stat v={String(panel.length)} label="credentialed experts" sub={`${disciplines} disciplines on this panel`} />
+            <Stat v={String(panel.length)} label="vetted fitness experts" sub={`${disciplines} disciplines on this panel`} />
             <Stat v={String(ballotsTotal)} label="independent ballots" sub="scored blind, published by name" />
             <Stat v={reviews.toLocaleString('en-US')} label="verified-purchase reviews" sub={`${filtered.toLocaleString('en-US')} suspected fakes removed`} />
             <Stat v={updated} label="last updated" sub={<Link href="/corrections">See every change</Link>} />
@@ -134,7 +134,7 @@ export default async function RankingView({ slug }: { slug: string }) {
           <section className="panelsec" aria-labelledby="panel-h">
             <div className="sechead">
               <div><div className="eyebrow">The {cat.name} panel</div><h2 id="panel-h">Who scored these products</h2></div>
-              <p className="small" style={{ maxWidth: '44ch', margin: 0 }}>Each panelist’s license is checked with the issuing board, conflicts are disclosed, and any brand they have ties to is removed from their ballot.</p>
+              <p className="small" style={{ maxWidth: '44ch', margin: 0 }}>Each panelist’s certifications and experience are verified, sponsorships and brand ties are disclosed, and any brand they have ties to is removed from their ballot.</p>
             </div>
             <div className="experts">
               {panel.slice(0, 8).map((x) => (
@@ -154,8 +154,8 @@ export default async function RankingView({ slug }: { slug: string }) {
 
         <section className="ctaband alt" aria-labelledby="join-h">
           <div>
-            <h2 id="join-h">Are you a dietitian, physician or pharmacist?</h2>
-            <p>Join a Weighed panel. Score products on the evidence, publish your reasoning under your own name, and get paid a flat fee that never depends on your scores.</p>
+            <h2 id="join-h">Are you a certified trainer or fitness professional?</h2>
+            <p>Join a Weighed panel. Score products on the evidence and your experience, publish your reasoning under your own name, and get paid a flat fee that never depends on your scores.</p>
           </div>
           <Link className="btn primary lg" href="/panel">Apply to the panel</Link>
         </section>

@@ -106,9 +106,9 @@ export default async function ProductPage({ params, searchParams }: Props) {
                 <input type="hidden" name="product_id" value={p.id} />
                 <div className="field"><label htmlFor="b-name">Expert name</label><input id="b-name" name="expert_name" required /></div>
                 <div className="field"><label htmlFor="b-cred">Credential</label>
-                  <select id="b-cred" name="credential">{['RD', 'MD', 'DO', 'PharmD', 'PhD', 'CSSD', 'Other'].map((c) => <option key={c}>{c}</option>)}</select>
+                  <select id="b-cred" name="credential">{['NASM-CPT', 'ACE-CPT', 'NSCA-CSCS', 'ACSM-EP', 'ISSA-CPT', 'Precision Nutrition', 'RD', 'Other'].map((c) => <option key={c}>{c}</option>)}</select>
                 </div>
-                <div className="field full"><label htmlFor="b-role">Role</label><input id="b-role" name="role_title" placeholder="e.g. Clinical pharmacist" /></div>
+                <div className="field full"><label htmlFor="b-role">Role</label><input id="b-role" name="role_title" placeholder="e.g. Strength coach, 8 years" /></div>
                 <div className="field full"><span className="lab">Criteria scores</span>
                   <div className="five">
                     {CRITERIA.map((c) => (

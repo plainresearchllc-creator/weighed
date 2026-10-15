@@ -8,7 +8,7 @@ const body = Public_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '70
 
 export const metadata: Metadata = {
   title: { default: 'Weighed — expert-scored product rankings', template: '%s · Weighed' },
-  description: 'Products scored by credentialed experts and weighed against verified-purchase reviews. No brand can pay for placement.',
+  description: 'Products scored by vetted fitness experts and weighed against verified-purchase reviews. No brand can pay for placement.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

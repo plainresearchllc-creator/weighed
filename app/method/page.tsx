@@ -7,7 +7,7 @@ import { CRITERIA, expertWeight, fmt1 } from '@/lib/scoring';
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'How scoring works',
-  description: 'How Weighed combines credentialed expert ballots with verified-purchase reviews into one published score.',
+  description: 'How Weighed combines fitness expert ballots with verified-purchase reviews into one published score.',
 };
 
 const pct = (n: number) => `${Math.round(n * 100)}%`;
@@ -41,6 +41,10 @@ const RUBRIC: Record<string, { what: string; low: string; high: string }> = {
 };
 
 const FAQ = [
+  {
+    q: 'Who is on the panel, and will that change?',
+    a: 'Today our panels are made up of certified trainers and experienced fitness professionals, each verified and bound by our conflict-of-interest rules. We are adding registered dietitians, physicians and other licensed health professionals over time. As they join, the Method page and each ballot will show exactly who scored what.',
+  },
   {
     q: 'Can a brand pay to be ranked or to improve its score?',
     a: 'No. Brands can’t buy placement, reviews, or removal. Where we earn a commission from a retailer link, it’s labeled, and products without a commission are ranked exactly the same way.',
@@ -111,13 +115,13 @@ export default async function MethodPage() {
       </div>
 
       <section className="m-sec m-split">
-        <PhotoSlot file="panel.jpg" alt="A dietitian taking notes while comparing product labels" />
+        <PhotoSlot file="panel.jpg" alt="A fitness coach taking notes while comparing product labels" />
         <div className="m-body">
           <div className="m-kicker">Step 1</div>
           <h2>The expert panel score</h2>
           <p>
-            Each category has its own panel of 8–15 credentialed professionals: registered dietitians, physicians, pharmacists, and
-            researchers matched to the category. Each panelist scores every product on the same five criteria, from 0 to 10, and writes a
+            Each category has its own panel of 8–15 vetted fitness professionals: certified personal trainers, strength and conditioning
+            coaches, sports nutrition coaches, and experienced fitness educators matched to the category. Each panelist scores every product on the same five criteria, from 0 to 10, and writes a
             short rationale that’s published under their name.
           </p>
           <p>
@@ -224,8 +228,8 @@ export default async function MethodPage() {
           <div className="m-kicker">Independence</div>
           <h2>How we keep scores honest</h2>
           <ul className="m-list">
-            <li><b>Verified credentials.</b> Every panelist’s license or registration is confirmed with the issuing board.</li>
-            <li><b>Conflicts disclosed.</b> Panelists disclose financial ties to brands from the past 24 months. Any brand they have ties to is blocked from their ballot.</li>
+            <li><b>Verified certifications.</b> We confirm each panelist’s certifications (such as NASM, ACE, NSCA or ACSM) with the certifying organization, and check their professional experience.</li>
+            <li><b>Conflicts disclosed.</b> Panelists disclose every brand tie from the past 24 months, including sponsorships, ambassador deals, affiliate links and discount codes. Any brand they have ties to is blocked from their ballot.</li>
             <li><b>Paid for time, not outcomes.</b> Panelists receive a flat fee per review cycle that never depends on their scores.</li>
             <li><b>Bought at retail.</b> We purchase every product ourselves. Brands never choose what panelists receive.</li>
             <li><b>Public corrections.</b> New ballots, withdrawn ballots, review updates and changes to this method are logged automatically in the <Link href="/corrections">corrections log</Link>.</li>

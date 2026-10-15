@@ -88,14 +88,14 @@ export default async function AdminPage({ searchParams }: { searchParams: { ok?:
 
           <div className="panel">
             <h3>People</h3>
-            <p className="small" style={{ margin: '0 0 14px' }}>Everyone who has signed in. Make verified experts panelists so they can submit ballots from the Panel page.</p>
+            <p className="small" style={{ margin: '0 0 14px' }}>Everyone who has signed in. Once you’ve verified someone’s certifications, make them a panelist so they can submit ballots from the Panel page.</p>
             <div className="presslist">
               {people.map((u: Profile & { verified_at: string | null }) => (
                 <form className="row" action={setRole} key={u.id}>
                   <input type="hidden" name="id" value={u.id} />
                   <span>
                     <b>{u.full_name || 'Unnamed'}</b>{u.credential ? `, ${u.credential}` : ''}
-                    <span className="small"> · {u.verified_at ? 'license verified' : 'not verified'}</span>
+                    <span className="small"> · {u.verified_at ? 'certifications verified' : 'not verified'}</span>
                   </span>
                   <span className="actions">
                     <label className="visually-hidden" htmlFor={`role-${u.id}`}>Role</label>
